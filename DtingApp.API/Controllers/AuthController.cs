@@ -19,7 +19,7 @@ namespace DtingApp.API.Controllers {
 
         public AuthController (IAuthRepository repo, IConfiguration config) {
             _repo = repo;
-            _config=config;
+            _config = config;
 
         }
 
@@ -42,6 +42,7 @@ namespace DtingApp.API.Controllers {
 
         [HttpPost ("login")]
         public async Task<IActionResult> Login (UserForLoginDto userForLoginDto) {
+            throw new Exception ("Computer says no!");
             var userFromRepo = await _repo.Login (userForLoginDto.Username, userForLoginDto.Password);
             if (userFromRepo == null)
                 return Unauthorized ();
@@ -51,23 +52,21 @@ namespace DtingApp.API.Controllers {
                 new Claim (ClaimTypes.Name, userFromRepo.Username)
             };
             var key = new SymmetricSecurityKey (Encoding.UTF8
-            .GetBytes(_config.GetSection("AppSettings:Token").Value));
-            var creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha256Signature);
+                .GetBytes (_config.GetSection ("AppSettings:Token").Value));
+            var creds = new SigningCredentials (key, SecurityAlgorithms.HmacSha256Signature);
 
-            var tokenDescriptor =new SecurityTokenDescriptor{
-                Subject = new ClaimsIdentity(claims),
-                Expires= DateTime.Now.AddDays(1),
-                SigningCredentials=creds
+            var tokenDescriptor = new SecurityTokenDescriptor {
+                Subject = new ClaimsIdentity (claims),
+                Expires = DateTime.Now.AddDays (1),
+                SigningCredentials = creds
             };
-            var tokenHandler =new JwtSecurityTokenHandler();
-            var token =tokenHandler.CreateToken(tokenDescriptor);
-            return Ok(new {
-                token =tokenHandler.WriteToken(token)
+            var tokenHandler = new JwtSecurityTokenHandler ();
+            var token = tokenHandler.CreateToken (tokenDescriptor);
+            return Ok (new {
+                token = tokenHandler.WriteToken (token)
             });
 
-
-
         }
-        
+
     }
 }
