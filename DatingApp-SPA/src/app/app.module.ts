@@ -16,7 +16,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { routing } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { from } from 'rxjs';
+import { UserService } from './_services/user.service';
 @NgModule({
    declarations: [
       AppComponent,
@@ -39,7 +39,8 @@ import { from } from 'rxjs';
       AlertifyService,
       ErrorinterceptorProvide,
       AuthGuard
-      , { provide: LocationStrategy, useClass: HashLocationStrategy }
+      , { provide: LocationStrategy, useClass: HashLocationStrategy },
+      UserService
    ],
    bootstrap: [
       AppComponent
