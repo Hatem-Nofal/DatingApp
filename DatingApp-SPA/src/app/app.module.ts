@@ -10,40 +10,40 @@ import { RegisterComponent } from './register/register.component';
 import { AlertifyService } from './_services/alertify.service';
 import { ErrorinterceptorProvide } from './_services/error.interceptor';
 import { BsDropdownModule } from 'ngx-bootstrap';
-import { MemberListComponent } from './member-list/member-list.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { routing } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { UserService } from './_services/user.service';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavComponent,
-      HomeComponent,
-      RegisterComponent,
-      MemberListComponent,
-      ListsComponent,
-      MessagesComponent
-   ],
-   imports: [
-      BrowserModule,
-      HttpClientModule,
-      FormsModule,
-      BsDropdownModule.forRoot()
-      , routing
-   ],
-   providers: [
-      AuthService,
-      AlertifyService,
-      ErrorinterceptorProvide,
-      AuthGuard
-      , { provide: LocationStrategy, useClass: HashLocationStrategy },
-      UserService
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+    RegisterComponent,
+    MemberListComponent,
+    ListsComponent,
+    MessagesComponent,
+    MemberCardComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    routing
+  ],
+  providers: [
+    AuthService,
+    AlertifyService,
+    ErrorinterceptorProvide,
+    AuthGuard,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    UserService
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
